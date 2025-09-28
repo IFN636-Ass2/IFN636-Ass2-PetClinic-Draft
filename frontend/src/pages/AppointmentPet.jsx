@@ -2,10 +2,12 @@ import { useState, useEffect, useCallback } from 'react';
 import axiosInstance from '../axiosConfig';
 import AppointmentForm from '../components/AppointmentForm';
 import AppointmentList from '../components/AppointmentList';
+import { useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-const Appointments = () => {
+const AppointmentsPet = () => {
   const { user } = useAuth();
+  const { petId } = useParams();
   const [appointments, setAppointments] = useState([]);
   const [editingAppointment, setEditingAppointment] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -16,9 +18,10 @@ const Appointments = () => {
     try {
       setLoading(true);
       // send GET request to get appointments
-      const response = await axiosInstance.get('/api/appointments', {
+      const response = await axiosInstance.get(`/api/appointments?petId=${petId}`, {
         headers: { Authorization: `Bearer ${user.token}` },
       });
+      console.log(response)
       // update appointments in local state
       setAppointments(response.data || []);
     } catch (error) {
@@ -26,7 +29,7 @@ const Appointments = () => {
     } finally {
       setLoading(false);
     }
-  }, [user?.token]);
+  }, [user?.token, petId]);
 
   useEffect(() => {
     fetchAppointments();
@@ -40,8 +43,9 @@ const Appointments = () => {
         setAppointments={setAppointments}
         editingAppointment={editingAppointment}
         setEditingAppointment={setEditingAppointment}
-        onSaved={fetchAppointments} 
-        canCreate={false} 
+        onSaved={fetchAppointments}
+        petId={petId}
+        canCreate={true} 
       />
 
       {loading && (
@@ -57,4 +61,4 @@ const Appointments = () => {
   );
 };
 
-export default Appointments;
+export default AppointmentsPet;
