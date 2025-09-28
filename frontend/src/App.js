@@ -4,6 +4,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Appointments from './pages/Appointment';
+import AppointmentsPet from './pages/AppointmentPet';
 import Pets from './pages/Pets';
 import PetDetails from './pages/PetDetails';
 import Home from './pages/Home';
