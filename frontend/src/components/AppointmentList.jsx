@@ -8,7 +8,7 @@ const AppointmentList = ({ appointments, setAppointments, setEditingAppointment 
   const handleDelete = async (appointmentId) => {
     // alert user before delete
     if (!window.confirm('Delete this appointment?')) return;
-    
+
     // if accept delete, send DELETE request
     try {
       await axiosInstance.delete(`/api/appointments/${appointmentId}`, {
@@ -23,15 +23,15 @@ const AppointmentList = ({ appointments, setAppointments, setEditingAppointment 
 
   // show no appointments
   if (!appointments?.length) return <p>No appointments yet.</p>;
-  
+
   // show appointment based on date
   const toTime = (d) => {
-  const t = new Date(d).getTime();
-  return Number.isNaN(t) ? Infinity : t;
-};
+    const t = new Date(d).getTime();
+    return Number.isNaN(t) ? Infinity : t;
+  };
   const sortedAppointments = [...appointments].sort(
-  (a, b) => toTime(a.date) - toTime(b.date)
-);
+    (a, b) => toTime(a.date) - toTime(b.date)
+  );
 
   // render the appointment cards
   return (
@@ -50,16 +50,16 @@ const AppointmentList = ({ appointments, setAppointments, setEditingAppointment 
 
           {/* header */}
           <h2 className="mb-3 text-lg font-extrabold tracking-tight">
-            Pet: {appt.petName || appt.pet?.name || '—'}
+            Pet: {appt.petId.name || appt.pet?.name || '—'}
           </h2>
 
           {/* info */}
           <div className="space-y-1 text-[15px]">
             <p className="text-gray-600">
               <span className="font-medium">Owner:</span>{' '}
-              {appt.ownerName || appt.owner?.name || '—'}{' '}
-              {appt.ownerPhone || appt.owner?.phone ? (
-                <> - {appt.ownerPhone || appt.owner?.phone}</>
+              {appt.petId.owner.name || appt.owner?.name || '—'}{' '}
+              {appt.petId.owner.phone || appt.owner?.phone ? (
+                <> - {appt.petId.owner.phone || appt.owner?.phone}</>
               ) : null}
             </p>
             <p className="text-gray-500">
@@ -77,7 +77,9 @@ const AppointmentList = ({ appointments, setAppointments, setEditingAppointment 
           <div className="mt-5 flex gap-3">
             <button
               type="button"
-              onClick={() => setEditingAppointment(appt)}
+              onClick={() => {
+                setEditingAppointment(appt)
+              }}
               className="flex-1 rounded-xl bg-yellow-500 px-5 py-2.5 font-semibold text-white shadow hover:bg-yellow-600"
             >
               Edit

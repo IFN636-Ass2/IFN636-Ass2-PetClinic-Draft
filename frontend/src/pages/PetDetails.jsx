@@ -156,33 +156,33 @@ const PetDetails = () => {
       {/* Info section */}
       {!editing ? (
         <div className="flex flex-col md:flex-row gap-6">
-            {/* Pet info card */}
-            <div className="flex-1 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-                <h2 className="text-2xl font-bold mb-4">Pet info</h2>
-                <p className="mb-2"><strong>Name:</strong> {pet.name || ''}</p>
-                <p className="mb-2"><strong>Species:</strong> {pet.species || ''}</p>
-                <p className="mb-2"><strong>Breed:</strong> {pet.breed || ''}</p>
-                <p className="mb-2"><strong>Gender:</strong> {pet.gender || ''}</p>
-                <p><strong>Age:</strong> {pet.age ?? ''}</p>
-            </div>
+          {/* Pet info card */}
+          <div className="flex-1 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+            <h2 className="text-2xl font-bold mb-4">Pet info</h2>
+            <p className="mb-2"><strong>Name:</strong> {pet.name || ''}</p>
+            <p className="mb-2"><strong>Species:</strong> {pet.species || ''}</p>
+            <p className="mb-2"><strong>Breed:</strong> {pet.breed || ''}</p>
+            <p className="mb-2"><strong>Gender:</strong> {pet.gender || ''}</p>
+            <p><strong>Age:</strong> {pet.age ?? ''}</p>
+          </div>
 
-            {/* Owner info card */}
-            <div className="flex-1 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-                <h2 className="text-2xl font-bold mb-4">Owner info</h2>
-                <p className="mb-2"><strong>Name:</strong> {pet.owner?.name || ''}</p>
-                <p className="mb-2"><strong>Phone Number:</strong> {pet.owner?.phone || ''}</p>
-                <p><strong>Email Address:</strong> {pet.owner?.email || ''}</p>
-            </div>
+          {/* Owner info card */}
+          <div className="flex-1 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+            <h2 className="text-2xl font-bold mb-4">Owner info</h2>
+            <p className="mb-2"><strong>Name:</strong> {pet.owner?.name || ''}</p>
+            <p className="mb-2"><strong>Phone Number:</strong> {pet.owner?.phone || ''}</p>
+            <p><strong>Email Address:</strong> {pet.owner?.email || ''}</p>
+          </div>
 
-            {/* Pet image card */}
-            <div className="w-full md:w-64 flex items-center justify-center rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
-                <img
-                src={`/images/pet2.png` || '/images/pets/default.jpg'}
-                alt={pet.name || 'Pet'}
-                className="w-full h-full object-cover rounded-lg"
-                />
-            </div>
-            </div>
+          {/* Pet image card */}
+          <div className="w-full md:w-64 flex items-center justify-center rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+            <img
+              src={`/images/pet2.png` || '/images/pets/default.jpg'}
+              alt={pet.name || 'Pet'}
+              className="w-full h-full object-cover rounded-lg"
+            />
+          </div>
+        </div>
 
       ) : (
         <form
@@ -269,6 +269,22 @@ const PetDetails = () => {
           </div>
         </form>
       )}
+      {/* Appointment */}
+      <div className="mt-4">
+        <button
+          type="button"
+          onClick={() => navigate(`/pets/${petId}/appointments`)}
+          className="inline-flex items-center gap-2 rounded px-4 py-2
+               bg-red-500 text-white hover:bg-red-600
+               focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2
+               disabled:cursor-not-allowed disabled:opacity-60"
+          aria-label="Open appointments"
+          disabled={!petId}
+          title={petId ? "View appointments" : "Missing pet id"}
+        >
+          Appointment
+        </button>
+      </div>
 
       {/* Treatments */}
       <h2 className="text-xl font-bold mt-6 mb-2">Treatments</h2>
