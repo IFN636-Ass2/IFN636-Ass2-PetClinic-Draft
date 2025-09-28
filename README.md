@@ -34,10 +34,13 @@ Make sure you have the following installed:
 - Assign your connection string to MONGO_URI variable.
 - Add the database name and replace your database credentials as required.
 
-### 4. Install Dependencies
+### 4.1. Install Dependencies
 - Install the following command in root folder for backend and frontend dependencies
     `npm run install-all`
 
+### 4.2. Install nodemailer
+- Install the following command for nodemailer
+    `npm i nodemailer`
 ### 5. Run the project
 - To start both the frontend and backend concurrently, run below command in the terminal
     `npm start` or `npm run dev`
