@@ -1,6 +1,7 @@
 const PetModel = require("../models/Pet");
 const appointmentService = require("../services/appointmentService");
 const { UserObserver, PetObserver, notifier } = require("../patterns/AppointmentObserver")
+const { logger } = require('../patterns/LoggerSingleton');
 
 
 // Facade sub system
@@ -15,7 +16,7 @@ class PetChecker {
 
 class UserValidator {
     validate(user) {
-        console.log("User Validator: Validating user");
+        logger.info("User Validator: Validating user");
         if (!user?.id) throw new Error("Invalid user.");
         return true;
     }
@@ -25,12 +26,12 @@ class UserValidator {
 
 class AppointmentCreator {
     async create(appointmentData, currentUser) {
-        console.log("Appointment Creator: Creating appointment");
+        logger.info("Appointment Creator: Creating appointment");
         const appointment = await appointmentService.createAppointment({
             ...appointmentData,
             userId: currentUser.id,
         });
-        console.log("Appointment Creator: Appointment saved");
+        logger.info("Appointment Creator: Appointment saved");
         return appointment;
     }
 }
@@ -44,7 +45,7 @@ class NotificationSender {
     }
 
     send(appointment) {
-        console.log("Notification Sender: Using Observer pattern");
+        logger.info("Notification Sender: Using Observer pattern");
 
         // Observer registration
         const userObs = new UserObserver(appointment.userId.name);
@@ -54,10 +55,10 @@ class NotificationSender {
         this.notifier.subscribe(petObs);
 
         // Observer sending notification
-        const message = `Appointment confirmed: ${appointment.petName} on ${appointment.date}`;
-        this.notifier.notify(message);
+        // const message = `Appointment confirmed: ${appointment.petName} on ${appointment.date}`;
+        // this.notifier.notify(message);
 
-        console.log("Notification Sender: All notifications sent");
+        logger.info("Notification Sender: All notifications sent");
         // Observer use
         notifier.subscribe(userObs);
         notifier.subscribe(petObs);
@@ -77,7 +78,7 @@ class AppointmentFacade {
     }
 
     async createCompleteAppointment(appointmentData, currentUser) {
-        console.log("\nStarting Complete Appointment Process...");
+        logger.info("\nStarting Complete Appointment Process...");
 
         // PetCheck(=>TV function)
         this.petChecker.check(appointmentData.petId);
@@ -87,19 +88,22 @@ class AppointmentFacade {
 
         // appointmnet (=>Lights)
         const appointment = await this.appointmentCreator.create(appointmentData, currentUser);
-
+        
         // Observer notification sender (=>AC)
         this.notificationSender.send(appointment);
 
-        console.log("Appointment process completed! 🎉\n");
+        logger.info("Appointment process completed! 🎉\n");
 
         return {
             success: true,
             appointment: appointment,
+            userId: String(appointment.userId._id),
+            petId: String(appointment.petId._id),
+            owner: appointment.petId.owner,
             message: "Appointment created and notifications sent!"
         };
     }
 }
 
 const facade = new AppointmentFacade();
-module.exports = {facade};
+module.exports = { facade };

@@ -14,22 +14,14 @@ class AppointmentService {
     // Create appointment
 
     async createAppointment(app) {
-        // console.log(app)
-        // const entityApp = new AppointmentEntity(app);
-        // const createdApp = await AppointmentModel.create(entityApp.toObject());
-        // const [user, pet] = await Promise.all([UserModel.findOne({ _id: app.userId }).select("-password"), PetModel.findOne({ _id: app.petId })])
-
-        // return {
-        //     ...createdApp.toObject(),
-        //     userId: user,
-        //     petId: pet
-        // };
-
-        const entity = new AppointmentEntity(app);
-        const payload = entity.toObject ? entity.toObject() : { ...entity };
-        const created = await AppointmentModel.create(payload);
-        const populated = await created.populate(POPULATE);
-        return populated.toObject ? populated.toObject() : populated;
+        const entityApp = new AppointmentEntity(app);
+        const createdApp = await AppointmentModel.create(entityApp.toObject());
+        const [user, pet] = await Promise.all([UserModel.findOne({ _id: app.userId }).select("-password"), PetModel.findOne({ _id: app.petId })])
+        return {
+            ...createdApp.toObject(),
+            userId: user,
+            petId: pet
+        };
     }
 
     // Get appointments
