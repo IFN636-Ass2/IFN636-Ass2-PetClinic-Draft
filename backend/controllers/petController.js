@@ -1,7 +1,7 @@
 const { PetService, TreatmentService } = require('../services/petService');
 const { UserEntity } = require('../domain/UserEntity');
-const { AdminOnlyProxy } = require('../domain/AdminProxy');
-const { UserFactory } = require('../domain/UserFactory');
+const { AdminOnlyProxy } = require('../patterns/AdminProxy');
+const { UserFactory } = require('../patterns/UserFactory');
 
 // Pet CRUD
 

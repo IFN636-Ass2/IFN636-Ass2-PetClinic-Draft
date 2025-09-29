@@ -12,8 +12,8 @@ const {
 } = require('../controllers/petController');
 
 const { PetService } = require('../services/petService');
-const { AdminOnlyProxy } = require('../domain/AdminProxy');
-const { UserFactory } = require('../domain/UserFactory');
+const { AdminOnlyProxy } = require('../patterns/AdminProxy');
+const { UserFactory } = require('../patterns/UserFactory');
 
 afterEach(() => sinon.restore());
 
