@@ -57,9 +57,9 @@ const AppointmentList = ({ appointments, setAppointments, setEditingAppointment 
           <div className="space-y-1 text-[15px]">
             <p className="text-gray-600">
               <span className="font-medium">Owner:</span>{' '}
-              {appt.petId.owner.name || appt.owner?.name || '—'}{' '}
-              {appt.petId.owner.phone || appt.owner?.phone ? (
-                <> - {appt.petId.owner.phone || appt.owner?.phone}</>
+              {appt.petId?.owner?.name || appt.owner?.name || '—'}{' '}
+              {appt.petId?.owner?.phone || appt.owner?.phone ? (
+                <> - {appt.petId?.owner?.phone || appt.owner?.phone}</>
               ) : null}
             </p>
             <p className="text-gray-500">

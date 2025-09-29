@@ -23,6 +23,7 @@ const Profile = () => {
         setFormData({
           name: response.data.name,
           email: response.data.email,
+          phone: response.data.phone,
           position: response.data.position || '',
           address: response.data.address || '',
         });
@@ -71,6 +72,13 @@ const Profile = () => {
           placeholder="Email"
           value={formData.email}
           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+          className="w-full mb-4 p-2 border rounded"
+        />
+        <input
+          type="phone"
+          placeholder="Phone"
+          value={formData.phone}
+          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
           className="w-full mb-4 p-2 border rounded"
         />
         <input
