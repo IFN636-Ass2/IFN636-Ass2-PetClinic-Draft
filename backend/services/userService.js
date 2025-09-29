@@ -23,17 +23,15 @@ class UserService {
     // check if user email is existed
     const exists = await UserModel.findOne({ email }).lean();
     if (exists) throw new Error('User already exists');
-
     // create entity for user
     const userEntity = UserFactory.create(['admin', 'staff'].includes(role) ? role : 'staff', {
       name,
-      phone,
       email,
+      phone,
       password,
       position,
       address
     });
-
     // create new user in DB
     return await UserModel.create(userEntity.fromRequest());
   }
