@@ -42,6 +42,7 @@ const TreatmentList = ({ petId, treatments, setTreatments }) => {
             {t.medicineCost !== undefined && (
               <p><strong>Medicine Cost:</strong> ${t.medicineCost}</p>
             )}
+            <p><strong>Payment surcharge:</strong> ${t.paymentFee}</p>
             <p><strong>Total Cost:</strong> ${t.totalCost}</p>
           </div>
 

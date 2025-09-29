@@ -2,9 +2,11 @@ import { useState } from 'react';
 import axiosInstance from '../axiosConfig';
 import { useAuth } from '../context/AuthContext';
 
+const METHODS = ['Credit Card', 'Cash', 'Apple Pay'];
+
 const TreatmentForm = ({ petId, setTreatments }) => {
   const { user } = useAuth();
-  const empty = { date: '', description: '', vet: '', treatmentCost: '', medicineCost: '' };
+  const empty = { date: '', description: '', vet: '', treatmentCost: '', medicineCost: '', paymentMethod: 'Cash' };
   
   // form data state for all input fields
   const [formData, setForm] = useState(empty);
@@ -29,6 +31,7 @@ const TreatmentForm = ({ petId, setTreatments }) => {
         description: formData.description,
         vet: formData.vet,
         treatmentCost: Number(formData.treatmentCost),
+        paymentMethod: formData.paymentMethod,
         ...(formData.medicineCost !== '' ? { medicineCost: Number(formData.medicineCost) } : {}),
       };
 
@@ -98,6 +101,19 @@ const TreatmentForm = ({ petId, setTreatments }) => {
       value={formData.medicineCost}
       onChange={onChange}
     />
+
+    <select
+        name="paymentMethod"
+        value={formData.paymentMethod}
+        onChange={onChange}
+        required
+        className="border rounded px-2 py-1"
+        aria-label="Payment Method"
+      >
+        {METHODS.map((m) => (
+          <option key={m} value={m}>{m}</option>
+        ))}
+      </select>
 
    {/* submit button */}
     <button
