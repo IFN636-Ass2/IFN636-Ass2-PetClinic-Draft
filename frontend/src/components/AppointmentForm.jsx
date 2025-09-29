@@ -78,6 +78,7 @@ const AppointmentForm = ({
       // if not, send POST request (create)
       else {
         // create new appointment
+        console.log(payload)
         const response = await axiosInstance.post('/api/appointments', { ...payload, petId }, {
           headers: { Authorization: `Bearer ${user.token}` },
         });
