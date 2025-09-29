@@ -1,4 +1,5 @@
-const { PaymentContext, PaymentStrategy, CashPayment, CardPayment, ApplePayment } = require('../domain/PaymentStrategy');
+const { PaymentContext, PaymentStrategy, CashPayment, CardPayment, ApplePayment } 
+= require('../patterns/PaymentStrategy');
 
 // Payment Stategy Mapping
 const PAYMENT_MAP = {
