@@ -1,3 +1,5 @@
+const logger = require('../patterns/LoggerSingleton');
+
 class AppointmentNotifier {
     constructor() {
         this.observers = [];
@@ -18,7 +20,7 @@ class UserObserver {
         this.name = name;
     }
     update(event) {
-        console.log(`User ${this.name} received notification: ${event}`);
+        logger.info(`User ${this.name} received notification: ${event}`);
     }
 }
 
@@ -28,19 +30,14 @@ class PetObserver {
         this.petName = petName;
     }
     update(event) {
-        console.log(`Pet ${this.petName} received notification: ${event}`);
+        logger.info(`Pet ${this.petName} received notification: ${event}`);
     }
 }
-class Logger {
-    update(data) {
-        console.log(`Logger received: ${data}`);
-    }
-}
+
 
 const notifier = new AppointmentNotifier();
-notifier.subscribe(new Logger());
 
-module.exports = { AppointmentNotifier, UserObserver, PetObserver, Logger, notifier };
+module.exports = { AppointmentNotifier, UserObserver, PetObserver, notifier };
 
 
 

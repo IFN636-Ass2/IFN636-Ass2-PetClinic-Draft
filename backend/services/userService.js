@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const UserModel = require('../models/User');
-const { UserFactory } = require('../domain/UserFactory');
+const { UserFactory } = require('../patterns/UserFactory');
 
 
 const generateToken = (id) =>
