@@ -1,22 +1,23 @@
 const appointmentService = require("../services/appointmentService");
-const { UserObserver, PetObserver, notifier } = require("../patterns/AppointmentObserver")
-const { AdapterMail } = require("../patterns/AdapterEmail")
-
+const { UserObserver, PetObserver, notifier } = require("../patterns/AppointmentObserver");
+const { AdapterMail } = require("../patterns/AdapterEmail");
+const { facade } = require("../patterns/AppointmentFacade");
 
 // Create appointment
 createAppointment = async (req, res) => {
   try {
-    const data = await appointmentService.createAppointment({ ...req.body, userId: req.user.id });
-    // Observer use
-    notifier.subscribe(new UserObserver(data.userId.name));
-    notifier.subscribe(new PetObserver(data.petId.name));
-    notifier.notify(JSON.stringify({
-      type: 'APPOINTMENT_CREATED'
-    }));
-    // Adapter use
-    const mailAdapter = new AdapterMail()
-    await mailAdapter.sendEmail("quynhanhthao.161@gmail.com", "Subject", "Meow")
-    res.status(201).json(data);
+    const appointment = await facade.createCompleteAppointment(req.body, req.user);
+    // const data = await appointmentService.createAppointment({ ...req.body, userId: req.user.id });
+    // // Observer use
+    // notifier.subscribe(new UserObserver(data.userId.name));
+    // notifier.subscribe(new PetObserver(data.petId.name));
+    // notifier.notify(JSON.stringify({
+    //   type: 'APPOINTMENT_CREATED'
+    // }));
+    // // Adapter use
+    // const mailAdapter = new AdapterMail()
+    // await mailAdapter.sendEmail("quynhanhthao.161@gmail.com", "Subject", "Meow")
+    res.status(201).json(appointment);
   } catch (error) { res.status(400).json({ message: error.message || 'Failed to create appointment' }); }
 };
 
