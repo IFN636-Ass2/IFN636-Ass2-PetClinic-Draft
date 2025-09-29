@@ -20,7 +20,6 @@ class Logger {
     }
 }
 
-const Logger = require('../patterns/LoggerSingleton');
 const logger = new Logger();
 
 module.exports = { Logger, logger };

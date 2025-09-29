@@ -1,4 +1,4 @@
-const logger = require('../patterns/LoggerSingleton');
+const {logger} = require('../patterns/LoggerSingleton');
 
 class AppointmentNotifier {
     constructor() {
