@@ -127,6 +127,15 @@ class AdminUser extends UserEntity {
       'user:view', 'user:update', 'user:create', 'user:delete'
     ];
   }
+  setRole(role) {
+    if (['admin', 'staff'].includes(String(role).trim())) {
+      super.setRole(role);
+    }
+  }
+
+  setPosition(position) {
+    super.setPosition(position);
+  }
 
 }
 
@@ -143,8 +152,15 @@ class StaffUser extends UserEntity {
       'user:view', 'user:update', 'user:create'
     ];
   }
-}
+  setRole(role) {
+    throw new Error('Not have permission to set role'); 
+    }
 
+  setPosition(position) {
+    throw new Error('Not have permission to set position'); 
+  }
+  
+  }
 
 module.exports = {
   UserEntity,
