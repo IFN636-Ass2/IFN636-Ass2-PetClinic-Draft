@@ -25,18 +25,18 @@ class AppointmentService {
     }
 
     // Get appointments
-    async getAppointments(petId = null) {
+    async getAppointments(petId = null, userId = null) {
         let apps;
         console.log("test conflict");
         if (!petId) {
-            apps = await AppointmentModel.find({}).populate({
+            apps = await AppointmentModel.find({userId: userId}).populate({
                 path: "userId",
                 select: "-password"
             }).populate({
                 path: "petId"
             }).lean();
         } else {
-            apps = await AppointmentModel.find({ petId: petId }).populate({
+            apps = await AppointmentModel.find({ userId: userId, petId: petId }).populate({
                 path: "userId",
                 select: "-password"
             }).populate({
