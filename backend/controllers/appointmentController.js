@@ -13,9 +13,10 @@ createAppointment = async (req, res) => {
 
 // Get appointments
 getAppointments = async (req, res) => {
-  const { petId } = req.query
+  const { petId } = req.query;
+  const userId = req.user._id.toString()
   try {
-    const data = await appointmentService.getAppointments(petId);
+    const data = await appointmentService.getAppointments(petId, userId);
     res.json(data);
   } catch (error) {
     res.status(500).json({ message: error.message });
