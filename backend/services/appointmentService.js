@@ -27,7 +27,7 @@ class AppointmentService {
     // Get appointments
     async getAppointments(petId = null, userId = null) {
         let apps;
-          console.log("debug nè: ", userId);
+        console.log("test conflict");
         if (!petId) {
             apps = await AppointmentModel.find({userId: userId}).populate({
                 path: "userId",
